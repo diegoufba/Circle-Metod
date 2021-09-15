@@ -1,4 +1,9 @@
-n = int(input('n: '))
+import networkx as nx
+import matplotlib.pyplot as plt
+from networkx.algorithms.distance_measures import center
+
+#n = int(input('n: '))
+n = 6
 
 def schedule_function(t,r):
     if t == n:
@@ -16,4 +21,14 @@ schedule = []
 for t in range(1,n+1):
     schedule.append([schedule_function(t,r) for r in range(1,n)])
 
+def desenhaGrafo(r):
+    G = nx.Graph()
+    G.add_nodes_from(range(1,n+1))
+    for t in range(1,n+1):
+        G.add_edge(t,schedule[t-1][r-1])
+    nx.draw(G, pos=nx.circular_layout(G), with_labels=True)
+    plt.show()
+    
+
 print(schedule)
+desenhaGrafo(1)
